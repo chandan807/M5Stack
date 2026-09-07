@@ -1,22 +1,34 @@
-# FieldNode Prototype Lab
+# FieldNode — M5Stack Prototype Lab
 
-Interactive client-facing M5Stack / ESP32 sensor-control prototype demo.
+A fully interactive React/Vite client-demo for an M5Stack / ESP32 prototype engagement.
 
-## What is included
-- 11 clickable engineering-demo pages
-- 3 M5Stack / ESP32 prototype concepts
-- Simulated live telemetry with pause/range/device controls
-- Remote pump control and automation threshold simulation
-- Interactive mobile-app and BLE/Wi-Fi pairing flows
-- ESPHome/YAML validation, compile and upload simulations
-- LoRa link controls and packet test
-- Hardware/BOM and validation views
+## Included
+- 11 responsive React views
+- M5Stack-style device visualizations
+- Simulated live telemetry with CSV export
+- Remote pump control and automation threshold
+- Interactive phone app
+- BLE/Wi-Fi pairing flow
+- Editable ESPHome YAML with validate/compile/upload simulation
+- LoRa RF link and packet test
+- Hardware/BOM view
+- Validation suite
 - Delivery workflow
 
-All telemetry and RF values are clearly presented as simulated demonstration data.
+All device values are explicitly simulated demonstration data.
 
-## Run
-Open `index.html` directly in a modern browser.
+## Local development
 
-## Deploy
-This is a zero-dependency static build. Deploy the repository root to GitHub Pages, Vercel, Netlify, Cloudflare Pages, S3/static hosting, or any standard web server.
+```bash
+npm install
+npm run dev
+```
+
+## Production build
+
+```bash
+npm run build
+```
+
+## GitHub Pages
+The Vite base path is configured for `/M5Stack/`. The included GitHub Actions workflow builds `dist/` and deploys it to Pages on pushes to `main`.
