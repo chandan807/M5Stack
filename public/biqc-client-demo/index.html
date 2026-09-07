@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#08111f"/>
+  <meta name="description" content="BIQc governed AI workspace demo — React client prototype"/>
+  <title>BIQc — Governed AI Demo</title>
+  <style>html,body,#root{height:100%;margin:0} body{background:#07111f;color:#eaf2ff;font-family:Inter,system-ui,sans-serif} .boot{height:100%;display:grid;place-items:center} .boot div{padding:18px 22px;border:1px solid #26364d;border-radius:16px;background:#0d1726} .boot b{display:block;margin-bottom:6px}</style>
+</head>
+<body>
+  <div id="root"><div class="boot"><div><b>BIQc governed workspace</b><span>Loading interactive React demo…</span></div></div></div>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.28.4/babel.min.js"></script>
+  <script type="module">
+    const jsFiles = ['app/01.jsx', 'app/02.jsx', 'app/03.jsx', 'app/04.jsx', 'app/05.jsx'];
+    const cssFiles = ['css/01.css', 'css/02.css', 'css/03.css', 'css/04.css'];
+    const fetchText = async (file) => { const r = await fetch(file); if (!r.ok) throw new Error(`${file}: ${r.status}`); return r.text(); };
+    try {
+      const [jsParts, cssParts] = await Promise.all([Promise.all(jsFiles.map(fetchText)), Promise.all(cssFiles.map(fetchText))]);
+      const style = document.createElement('style'); style.textContent = cssParts.join(''); document.head.appendChild(style);
+      const compiled = Babel.transform(jsParts.join(''), {presets:[['react', {runtime:'classic'}]], sourceType:'module', filename:'biqc-demo.jsx'}).code;
+      const blobUrl = URL.createObjectURL(new Blob([compiled], {type:'text/javascript'}));
+      await import(blobUrl);
+    } catch (err) {
+      console.error(err);
+      document.getElementById('root').innerHTML = `<div class="boot"><div><b>Demo failed to load</b><span>${String(err.message || err)}</span></div></div>`;
+    }
+  </script>
+</body>
+</html>
